@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دروستکەری لینک — Kurdistan.app</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1520;
+    --card:#171F2E;
+    --card-2:#1D2739;
+    --line:#2A3548;
+    --gold:#E8A33D;
+    --gold-dim:#a3792f;
+    --teal:#3E9C86;
+    --text:#F2EFE9;
+    --muted:#8B95A5;
+    --danger:#E0654F;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(232,163,61,0.10), transparent 60%),
+      radial-gradient(900px 500px at 90% 110%, rgba(62,156,134,0.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Vazirmatn', sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 16px;
+  }
+
+  .wrap{ width:100%; max-width:460px; }
+
+  .brand{
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .brand .peaks{
+    width:64px; height:34px; margin:0 auto 14px;
+    display:block;
+  }
+  .brand h1{
+    font-size:26px;
+    font-weight:800;
+    margin:0 0 6px;
+    letter-spacing:0;
+  }
+  .brand p{
+    color:var(--muted);
+    font-size:14.5px;
+    margin:0;
+    line-height:1.6;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px 24px 24px;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,0.5);
+  }
+
+  .stage{ position:relative; padding-inline-start:28px; }
+  .stage::before{
+    content:"";
+    position:absolute;
+    right:9px; top:26px; bottom:-6px;
+    width:2px;
+    background:var(--line);
+  }
+  .stage:last-of-type::before{ display:none; }
+
+  .dot{
+    position:absolute;
+    right:0; top:2px;
+    width:20px; height:20px;
+    border-radius:50%;
+    background:var(--card-2);
+    border:2px solid var(--gold);
+    color:var(--gold);
+    font-size:11px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  label{
+    display:block;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:8px;
+  }
+  label small{
+    display:block;
+    font-weight:400;
+    color:var(--muted);
+    font-size:12.5px;
+    margin-top:2px;
+  }
+
+  .field-group{ margin-bottom:22px; }
+
+  input[type=text], input[type=url]{
+    width:100%;
+    background:var(--card-2);
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:inherit;
+    font-size:14.5px;
+    padding:12px 14px;
+    border-radius:10px;
+    outline:none;
+    transition:border-color .15s ease;
+    direction:ltr;
+    text-align:left;
+  }
+  input[type=text]:focus, input[type=url]:focus{
+    border-color:var(--gold);
+  }
+  input::placeholder{ color:#5c6579; }
+
+  .prefix-row{
+    display:flex;
+    align-items:stretch;
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--card-2);
+  }
+  .prefix-row .prefix{
+    padding:12px 12px;
+    color:var(--muted);
+    font-size:13.5px;
+    white-space:nowrap;
+    border-left:1px solid var(--line);
+    display:flex;
+    align-items:center;
+  }
+  .prefix-row input{
+    border:none;
+    background:transparent;
+    flex:1;
+    min-width:0;
+    border-radius:0;
+  }
+  .prefix-row:focus-within{ border-color:var(--gold); }
+
+  button.primary{
+    width:100%;
+    background:var(--gold);
+    color:#1a1305;
+    border:none;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:700;
+    padding:13px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:background .15s ease, transform .05s ease;
+    margin-bottom:6px;
+  }
+  button.primary:hover{ background:#f0ae4d; }
+  button.primary:active{ transform:scale(0.99); }
+  button.primary:disabled{ opacity:0.55; cursor:default; }
+
+  .hint{ font-size:12.5px; color:var(--muted); text-align:center; margin-top:8px; }
+
+  .status{
+    font-size:13px;
+    text-align:center;
+    margin-top:10px;
+    min-height:18px;
+  }
+  .status.err{ color:var(--danger); }
+  .status.ok{ color:var(--teal); }
+
+  .result{
+    margin-top:8px;
+    display:none;
+  }
+  .result.show{ display:block; }
+
+  .result-box{
+    background:var(--card-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+  }
+  .qr-wrap{
+    background:#fff;
+    border-radius:10px;
+    padding:10px;
+    display:inline-block;
+    margin-bottom:14px;
+  }
+  .qr-wrap img{ display:block; width:150px; height:150px; }
+
+  .link-row{
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .link-row input{
+    flex:1;
+    text-align:center;
+    font-size:13.5px;
+    color:var(--teal);
+    background:var(--bg);
+  }
+  .copy-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:inherit;
+    font-size:13px;
+    padding:11px 14px;
+    border-radius:9px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .copy-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="brand">
+    <svg class="peaks" viewBox="0 0 64 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 30 L16 10 L24 20 L34 4 L48 22 L54 14 L62 30 Z" stroke="#E8A33D" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+      <circle cx="50" cy="8" r="4" fill="#E8A33D"/>
+    </svg>
+    <h1>دروستکەری لینکی کورت</h1>
+    <p>لینکێکی درێژ بکە بە لینکێکی کورتی خۆت، لەژێر ناوی دیاریکراوی خۆت</p>
+  </div>
+
+  <div class="card">
+
+    <div class="stage">
+      <div class="dot">۱</div>
+      <div class="field-group">
+        <label for="target-url">لینکی ئەسڵی (شوێنی مەبەست)
+          <small>ئەو ماڵپەڕەی دەتەوێت بەکارهێنەر بگاتە پێی</small>
+        </label>
+        <input type="url" id="target-url" placeholder="https://example.com/something">
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="dot">۲</div>
+      <div class="field-group">
+        <label for="slug">ناوی تایبەت
+          <small>پیت و ژمارەی ئینگلیزی و - و _ ڕێگەپێدراوە، بێ بۆشایی</small>
+        </label>
+        <div class="prefix-row">
+          <span class="prefix" id="domain-prefix">kurdistan.app/</span>
+          <input type="text" id="slug" placeholder="my-name">
+        </div>
+      </div>
+    </div>
+
+    <button class="primary" id="submit-btn" type="button">دروستکردنی لینک</button>
+    <div class="hint">دووبارە هەمان ناو بەکاربهێنە بۆ نوێکردنەوەی ئەو شوێنەی لینکەکە دەیبات بۆی</div>
+    <div class="status" id="status"></div>
+
+    <div class="stage result" id="result-block" style="margin-top:20px; padding-inline-start:28px;">
+      <div class="dot">۳</div>
+      <div class="result-box">
+        <div class="qr-wrap">
+          <img id="qr-img" src="" alt="کۆدی کیو ئار">
+        </div>
+        <div class="link-row">
+          <input type="text" id="final-link" readonly>
+          <button class="copy-btn" id="copy-btn" type="button">کۆپی</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>لینکی سێیەم و کۆدی کیوئار هەرگیز ناگۆڕدرێن — تەنها شوێنی مەبەست دەگۆڕدرێت</footer>
+</div>
+
+<script>
+(function(){
+  const targetInput = document.getElementById('target-url');
+  const slugInput = document.getElementById('slug');
+  const btn = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('status');
+  const resultBlock = document.getElementById('result-block');
+  const finalLinkInput = document.getElementById('final-link');
+  const qrImg = document.getElementById('qr-img');
+  const copyBtn = document.getElementById('copy-btn');
+  const domainPrefix = document.getElementById('domain-prefix');
+
+  const origin = window.location.origin;
+  domainPrefix.textContent = origin.replace(/^https?:\/\//, '') + '/';
+
+  function setStatus(msg, kind){
+    statusEl.textContent = msg || '';
+    statusEl.className = 'status' + (kind ? ' ' + kind : '');
+  }
+
+  function slugify(v){
+    return v.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-_]/g, '');
+  }
+
+  async function handleSubmit(){
+    const url = targetInput.value.trim();
+    const slug = slugify(slugInput.value);
+
+    if(!url){ setStatus('تکایە لینکی ئەسڵی بنووسە', 'err'); return; }
+    try { new URL(url); } catch(e){ setStatus('ئەم لینکە دروست نییە، http:// یان https:// زیاد بکە', 'err'); return; }
+    if(!slug){ setStatus('تکایە ناوێکی تایبەت بنووسە (پیت/ژمارەی ئینگلیزی)', 'err'); return; }
+
+    slugInput.value = slug;
+    btn.disabled = true;
+    setStatus('چاوەڕێبە...', '');
+
+    try{
+      const res = await fetch('/api/save-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, target_url: url })
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if(!res.ok){
+        setStatus(data.error || 'هەڵەیەک ڕوویدا، دووبارە هەوڵبدەرەوە', 'err');
+        btn.disabled = false;
+        return;
+      }
+
+      const finalLink = origin + '/' + slug;
+      finalLinkInput.value = finalLink;
+      qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(finalLink);
+      resultBlock.classList.add('show');
+      setStatus('سەرکەوتوو بوو ✓', 'ok');
+    } catch(e){
+      setStatus('نەتوانرا پەیوەندی بکرێت، تۆڕەکەت بپشکنە', 'err');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  btn.addEventListener('click', handleSubmit);
+
+  copyBtn.addEventListener('click', async function(){
+    try{
+      await navigator.clipboard.writeText(finalLinkInput.value);
+      const old = copyBtn.textContent;
+      copyBtn.textContent = 'کۆپی کرا ✓';
+      setTimeout(() => copyBtn.textContent = old, 1500);
+    } catch(e){
+      finalLinkInput.select();
+      document.execCommand('copy');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
