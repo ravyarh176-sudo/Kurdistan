@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/save-link"
+  to = "/.netlify/functions/save-link"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/go/:splat"
+  status = 302
