@@ -14,7 +14,6 @@
     --card-2:#1D2739;
     --line:#2A3548;
     --gold:#E8A33D;
-    --gold-dim:#a3792f;
     --teal:#3E9C86;
     --text:#F2EFE9;
     --muted:#8B95A5;
@@ -30,34 +29,15 @@
     color:var(--text);
     font-family:'Vazirmatn', sans-serif;
     min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:32px 16px;
+    padding:32px 16px 60px;
   }
 
-  .wrap{ width:100%; max-width:460px; }
+  .wrap{ width:100%; max-width:460px; margin:0 auto; }
 
-  .brand{
-    text-align:center;
-    margin-bottom:28px;
-  }
-  .brand .peaks{
-    width:64px; height:34px; margin:0 auto 14px;
-    display:block;
-  }
-  .brand h1{
-    font-size:26px;
-    font-weight:800;
-    margin:0 0 6px;
-    letter-spacing:0;
-  }
-  .brand p{
-    color:var(--muted);
-    font-size:14.5px;
-    margin:0;
-    line-height:1.6;
-  }
+  .brand{ text-align:center; margin-bottom:28px; }
+  .brand .peaks{ width:64px; height:34px; margin:0 auto 14px; display:block; }
+  .brand h1{ font-size:26px; font-weight:800; margin:0 0 6px; }
+  .brand p{ color:var(--muted); font-size:14.5px; margin:0; line-height:1.6; }
 
   .card{
     background:var(--card);
@@ -69,173 +49,109 @@
 
   .stage{ position:relative; padding-inline-start:28px; }
   .stage::before{
-    content:"";
-    position:absolute;
-    right:9px; top:26px; bottom:-6px;
-    width:2px;
-    background:var(--line);
+    content:""; position:absolute; right:9px; top:26px; bottom:-6px;
+    width:2px; background:var(--line);
   }
   .stage:last-of-type::before{ display:none; }
-
   .dot{
-    position:absolute;
-    right:0; top:2px;
-    width:20px; height:20px;
-    border-radius:50%;
-    background:var(--card-2);
-    border:2px solid var(--gold);
-    color:var(--gold);
-    font-size:11px;
-    font-weight:700;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    position:absolute; right:0; top:2px; width:20px; height:20px;
+    border-radius:50%; background:var(--card-2); border:2px solid var(--gold);
+    color:var(--gold); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
   }
 
-  label{
-    display:block;
-    font-size:13.5px;
-    font-weight:600;
-    color:var(--text);
-    margin-bottom:8px;
-  }
-  label small{
-    display:block;
-    font-weight:400;
-    color:var(--muted);
-    font-size:12.5px;
-    margin-top:2px;
-  }
-
+  label{ display:block; font-size:13.5px; font-weight:600; color:var(--text); margin-bottom:8px; }
+  label small{ display:block; font-weight:400; color:var(--muted); font-size:12.5px; margin-top:2px; }
   .field-group{ margin-bottom:22px; }
 
   input[type=text], input[type=url]{
-    width:100%;
-    background:var(--card-2);
-    border:1px solid var(--line);
-    color:var(--text);
-    font-family:inherit;
-    font-size:14.5px;
-    padding:12px 14px;
-    border-radius:10px;
-    outline:none;
-    transition:border-color .15s ease;
-    direction:ltr;
-    text-align:left;
+    width:100%; background:var(--card-2); border:1px solid var(--line); color:var(--text);
+    font-family:inherit; font-size:14.5px; padding:12px 14px; border-radius:10px;
+    outline:none; transition:border-color .15s ease; direction:ltr; text-align:left;
   }
-  input[type=text]:focus, input[type=url]:focus{
-    border-color:var(--gold);
-  }
+  input[type=text]:focus, input[type=url]:focus{ border-color:var(--gold); }
   input::placeholder{ color:#5c6579; }
 
   .prefix-row{
-    display:flex;
-    align-items:stretch;
-    border:1px solid var(--line);
-    border-radius:10px;
-    overflow:hidden;
-    background:var(--card-2);
+    display:flex; align-items:stretch; border:1px solid var(--line);
+    border-radius:10px; overflow:hidden; background:var(--card-2);
   }
   .prefix-row .prefix{
-    padding:12px 12px;
-    color:var(--muted);
-    font-size:13.5px;
-    white-space:nowrap;
-    border-left:1px solid var(--line);
-    display:flex;
-    align-items:center;
+    padding:12px 12px; color:var(--muted); font-size:13.5px; white-space:nowrap;
+    border-left:1px solid var(--line); display:flex; align-items:center;
   }
-  .prefix-row input{
-    border:none;
-    background:transparent;
-    flex:1;
-    min-width:0;
-    border-radius:0;
-  }
+  .prefix-row input{ border:none; background:transparent; flex:1; min-width:0; border-radius:0; }
   .prefix-row:focus-within{ border-color:var(--gold); }
 
   button.primary{
-    width:100%;
-    background:var(--gold);
-    color:#1a1305;
-    border:none;
-    font-family:inherit;
-    font-size:15px;
-    font-weight:700;
-    padding:13px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    transition:background .15s ease, transform .05s ease;
-    margin-bottom:6px;
+    width:100%; background:var(--gold); color:#1a1305; border:none;
+    font-family:inherit; font-size:15px; font-weight:700; padding:13px 16px;
+    border-radius:10px; cursor:pointer; margin-bottom:6px;
   }
   button.primary:hover{ background:#f0ae4d; }
-  button.primary:active{ transform:scale(0.99); }
   button.primary:disabled{ opacity:0.55; cursor:default; }
 
   .hint{ font-size:12.5px; color:var(--muted); text-align:center; margin-top:8px; }
 
-  .status{
-    font-size:13px;
-    text-align:center;
-    margin-top:10px;
-    min-height:18px;
-  }
+  .status{ font-size:13px; text-align:center; margin-top:10px; min-height:18px; }
   .status.err{ color:var(--danger); }
   .status.ok{ color:var(--teal); }
 
-  .result{
-    margin-top:8px;
-    display:none;
-  }
+  .result{ margin-top:20px; padding-inline-start:28px; display:none; }
   .result.show{ display:block; }
-
   .result-box{
-    background:var(--card-2);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:18px;
-    text-align:center;
+    background:var(--card-2); border:1px solid var(--line); border-radius:12px;
+    padding:18px; text-align:center;
   }
   .qr-wrap{
-    background:#fff;
-    border-radius:10px;
-    padding:10px;
-    display:inline-block;
-    margin-bottom:14px;
+    background:#fff; border-radius:10px; padding:10px;
+    display:inline-block; margin-bottom:14px;
   }
   .qr-wrap img{ display:block; width:150px; height:150px; }
-
-  .link-row{
-    display:flex;
-    gap:8px;
-    align-items:center;
-  }
+  .link-row{ display:flex; gap:8px; align-items:center; }
   .link-row input{
-    flex:1;
-    text-align:center;
-    font-size:13.5px;
-    color:var(--teal);
-    background:var(--bg);
+    flex:1; text-align:center; font-size:13.5px; color:var(--teal); background:var(--bg);
   }
   .copy-btn{
-    background:transparent;
-    border:1px solid var(--line);
-    color:var(--text);
-    font-family:inherit;
-    font-size:13px;
-    padding:11px 14px;
-    border-radius:9px;
-    cursor:pointer;
+    background:transparent; border:1px solid var(--line); color:var(--text);
+    font-family:inherit; font-size:13px; padding:11px 14px; border-radius:9px; cursor:pointer;
     white-space:nowrap;
   }
   .copy-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
-  footer{
-    text-align:center;
-    color:var(--muted);
-    font-size:12px;
-    margin-top:20px;
+  /* ---- project list ---- */
+  .list-section{ margin-top:34px; }
+  .list-section h2{ font-size:16px; font-weight:700; margin:0 0 4px; }
+  .list-section p{ color:var(--muted); font-size:13px; margin:0 0 16px; }
+
+  .list-empty{
+    color:var(--muted); font-size:13.5px; text-align:center;
+    padding:24px 10px; border:1px dashed var(--line); border-radius:12px;
   }
+
+  .link-item{
+    display:flex; align-items:center; gap:12px;
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:12px 14px; margin-bottom:10px;
+  }
+  .link-item img{
+    width:52px; height:52px; border-radius:8px; background:#fff; padding:4px; flex-shrink:0;
+  }
+  .link-item .info{ flex:1; min-width:0; }
+  .link-item .slug{ font-weight:700; font-size:14px; direction:ltr; text-align:left; }
+  .link-item .full{
+    color:var(--muted); font-size:12px; direction:ltr; text-align:left;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .link-item .actions{ display:flex; flex-direction:column; gap:6px; }
+  .icon-btn{
+    background:var(--card-2); border:1px solid var(--line); color:var(--text);
+    font-family:inherit; font-size:11.5px; padding:7px 10px; border-radius:8px;
+    cursor:pointer; white-space:nowrap;
+  }
+  .icon-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:24px; }
 </style>
 </head>
 <body>
@@ -280,12 +196,10 @@
     <div class="hint">دووبارە هەمان ناو بەکاربهێنە بۆ نوێکردنەوەی ئەو شوێنەی لینکەکە دەیبات بۆی</div>
     <div class="status" id="status"></div>
 
-    <div class="stage result" id="result-block" style="margin-top:20px; padding-inline-start:28px;">
+    <div class="stage result" id="result-block">
       <div class="dot">۳</div>
       <div class="result-box">
-        <div class="qr-wrap">
-          <img id="qr-img" src="" alt="کۆدی کیو ئار">
-        </div>
+        <div class="qr-wrap"><img id="qr-img" src="" alt="کۆدی کیو ئار"></div>
         <div class="link-row">
           <input type="text" id="final-link" readonly>
           <button class="copy-btn" id="copy-btn" type="button">کۆپی</button>
@@ -295,7 +209,15 @@
 
   </div>
 
-  <footer>لینکی سێیەم و کۆدی کیوئار هەرگیز ناگۆڕدرێن — تەنها شوێنی مەبەست دەگۆڕدرێت</footer>
+  <div class="list-section">
+    <h2>لینکە دروستکراوەکانت</h2>
+    <p>هەموو لینکەکانت لێرە دەمێننەوە. کرتە لە "دەستکاریکردن" بکە بۆ گۆڕینی شوێنی مەبەستی هەر یەکێکیان.</p>
+    <div id="list-container">
+      <div class="list-empty" id="list-loading">چاوەڕێبە...</div>
+    </div>
+  </div>
+
+  <footer>لینکی کورت و کۆدی کیوئار هەرگیز ناگۆڕدرێن — تەنها شوێنی مەبەست دەگۆڕدرێت</footer>
 </div>
 
 <script>
@@ -309,6 +231,7 @@
   const qrImg = document.getElementById('qr-img');
   const copyBtn = document.getElementById('copy-btn');
   const domainPrefix = document.getElementById('domain-prefix');
+  const listContainer = document.getElementById('list-container');
 
   const origin = window.location.origin;
   domainPrefix.textContent = origin.replace(/^https?:\/\//, '') + '/';
@@ -320,6 +243,10 @@
 
   function slugify(v){
     return v.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-_]/g, '');
+  }
+
+  function qrUrl(link){
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(link);
   }
 
   async function handleSubmit(){
@@ -350,9 +277,13 @@
 
       const finalLink = origin + '/' + slug;
       finalLinkInput.value = finalLink;
-      qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(finalLink);
+      qrImg.src = qrUrl(finalLink);
       resultBlock.classList.add('show');
       setStatus('سەرکەوتوو بوو ✓', 'ok');
+
+      targetInput.value = '';
+      slugInput.value = '';
+      loadList();
     } catch(e){
       setStatus('نەتوانرا پەیوەندی بکرێت، تۆڕەکەت بپشکنە', 'err');
     } finally {
@@ -373,6 +304,64 @@
       document.execCommand('copy');
     }
   });
+
+  function renderList(links){
+    if(!links || links.length === 0){
+      listContainer.innerHTML = '<div class="list-empty">هێشتا هیچ لینکێکت دروست نەکردووە</div>';
+      return;
+    }
+    listContainer.innerHTML = '';
+    links.forEach(function(item){
+      const slug = item.slug;
+      const link = origin + '/' + slug;
+      const row = document.createElement('div');
+      row.className = 'link-item';
+      row.innerHTML =
+        '<img src="' + qrUrl(link) + '" alt="qr">' +
+        '<div class="info">' +
+          '<div class="slug">/' + slug + '</div>' +
+          '<div class="full">' + link + '</div>' +
+        '</div>' +
+        '<div class="actions">' +
+          '<button class="icon-btn" data-copy="' + link + '">کۆپی</button>' +
+          '<button class="icon-btn" data-edit="' + slug + '">دەستکاریکردن</button>' +
+        '</div>';
+      listContainer.appendChild(row);
+    });
+
+    listContainer.querySelectorAll('[data-copy]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        try{
+          await navigator.clipboard.writeText(b.getAttribute('data-copy'));
+          const old = b.textContent;
+          b.textContent = 'کرا ✓';
+          setTimeout(() => b.textContent = old, 1200);
+        } catch(e){}
+      });
+    });
+
+    listContainer.querySelectorAll('[data-edit]').forEach(function(b){
+      b.addEventListener('click', function(){
+        slugInput.value = b.getAttribute('data-edit');
+        targetInput.value = '';
+        targetInput.focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setStatus('ناوی "' + slugInput.value + '" هەڵبژێردرا — لینکی نوێی بنووسە و "دروستکردنی لینک" بکە بۆ نوێکردنەوەی شوێنی مەبەستی', '');
+      });
+    });
+  }
+
+  async function loadList(){
+    try{
+      const res = await fetch('/api/list-links');
+      const data = await res.json();
+      renderList(data.links || []);
+    } catch(e){
+      listContainer.innerHTML = '<div class="list-empty">نەتوانرا لیستەکە باربکرێت</div>';
+    }
+  }
+
+  loadList();
 })();
 </script>
 
