@@ -13,6 +13,11 @@
   status = 200
 
 [[redirects]]
+  from = "/api/delete-link"
+  to = "/.netlify/functions/delete-link"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/go/:splat"
   status = 302
