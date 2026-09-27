@@ -150,6 +150,8 @@
     cursor:pointer; white-space:nowrap;
   }
   .icon-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .icon-btn.danger{ color:var(--danger); border-color:var(--danger); }
+  .icon-btn.danger:hover{ background:var(--danger); color:#1a0805; }
 
   footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:24px; }
 </style>
@@ -211,7 +213,7 @@
 
   <div class="list-section">
     <h2>لینکە دروستکراوەکانت</h2>
-    <p>هەموو لینکەکانت لێرە دەمێننەوە. کرتە لە "دەستکاریکردن" بکە بۆ گۆڕینی شوێنی مەبەستی هەر یەکێکیان.</p>
+    <p>هەموو لینکەکانت لێرە دەمێننەوە. دەتوانیت دەستکاریان بکەیت یان بیانسڕیتەوە.</p>
     <div id="list-container">
       <div class="list-empty" id="list-loading">چاوەڕێبە...</div>
     </div>
@@ -305,6 +307,29 @@
     }
   });
 
+  async function handleDelete(slug, rowEl){
+    const sure = window.confirm('دڵنیایت لە سڕینەوەی "' + slug + '"؟ ناتوانرێت بگەڕێندرێتەوە.');
+    if(!sure) return;
+
+    try{
+      const res = await fetch('/api/delete-link', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug })
+      });
+      if(!res.ok){
+        alert('نەتوانرا بسڕدرێتەوە، دووبارە هەوڵبدەرەوە');
+        return;
+      }
+      rowEl.remove();
+      if(!listContainer.querySelector('.link-item')){
+        listContainer.innerHTML = '<div class="list-empty">هێشتا هیچ لینکێکت دروست نەکردووە</div>';
+      }
+    } catch(e){
+      alert('نەتوانرا پەیوەندی بکرێت');
+    }
+  }
+
   function renderList(links){
     if(!links || links.length === 0){
       listContainer.innerHTML = '<div class="list-empty">هێشتا هیچ لینکێکت دروست نەکردووە</div>';
@@ -324,29 +349,31 @@
         '</div>' +
         '<div class="actions">' +
           '<button class="icon-btn" data-copy="' + link + '">کۆپی</button>' +
-          '<button class="icon-btn" data-edit="' + slug + '">دەستکاریکردن</button>' +
+          '<button class="icon-btn" data-edit="' + slug + '">دەستکاری</button>' +
+          '<button class="icon-btn danger" data-delete="' + slug + '">سڕینەوە</button>' +
         '</div>';
       listContainer.appendChild(row);
-    });
 
-    listContainer.querySelectorAll('[data-copy]').forEach(function(b){
-      b.addEventListener('click', async function(){
+      row.querySelector('[data-copy]').addEventListener('click', async function(){
         try{
-          await navigator.clipboard.writeText(b.getAttribute('data-copy'));
+          await navigator.clipboard.writeText(link);
+          const b = row.querySelector('[data-copy]');
           const old = b.textContent;
           b.textContent = 'کرا ✓';
           setTimeout(() => b.textContent = old, 1200);
         } catch(e){}
       });
-    });
 
-    listContainer.querySelectorAll('[data-edit]').forEach(function(b){
-      b.addEventListener('click', function(){
-        slugInput.value = b.getAttribute('data-edit');
+      row.querySelector('[data-edit]').addEventListener('click', function(){
+        slugInput.value = slug;
         targetInput.value = '';
         targetInput.focus();
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        setStatus('ناوی "' + slugInput.value + '" هەڵبژێردرا — لینکی نوێی بنووسە و "دروستکردنی لینک" بکە بۆ نوێکردنەوەی شوێنی مەبەستی', '');
+        setStatus('ناوی "' + slug + '" هەڵبژێردرا — لینکی نوێی بنووسە و "دروستکردنی لینک" بکە', '');
+      });
+
+      row.querySelector('[data-delete]').addEventListener('click', function(){
+        handleDelete(slug, row);
       });
     });
   }
