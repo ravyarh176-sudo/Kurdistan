@@ -17,7 +17,7 @@ exports.handler = async (event) => {
   }
 
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/links?slug=eq.${encodeURIComponent(slug)}&select=target_url`,
+    `${SUPABASE_URL}/rest/v1/links?slug=eq.${encodeURIComponent(slug)}&select=target_url,paused`,
     {
       headers: {
         'apikey': SUPABASE_SERVICE_KEY,
@@ -40,9 +40,17 @@ exports.handler = async (event) => {
     };
   }
 
+  if (rows[0].paused) {
+    return {
+      statusCode: 503,
+      headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' },
+      body: pausedPage()
+    };
+  }
+
   return {
     statusCode: 302,
-    headers: { Location: rows[0].target_url }
+    headers: { Location: rows[0].target_url, 'Cache-Control': 'no-store' }
   };
 };
 
@@ -55,5 +63,17 @@ display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
 <div style="text-align:center;">
 <h2>ئەم لینکە بوونی نییە</h2>
 <p style="color:#8B95A5;">"${slug}" هیچ شوێنێکی مەبەستی نییە.</p>
+</div></body></html>`;
+}
+
+function pausedPage() {
+  return `<!DOCTYPE html>
+<html lang="ckb" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وەستاوە</title></head>
+<body style="font-family:sans-serif;background:#0F1520;color:#F2EFE9;
+display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+<div style="text-align:center;padding:0 20px;">
+<h2>ئەم وێب سایتە بۆ ماوەیەکی کاتی وەستاوە</h2>
 </div></body></html>`;
 }
