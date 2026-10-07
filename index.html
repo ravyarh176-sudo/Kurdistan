@@ -150,6 +150,7 @@
     cursor:pointer; white-space:nowrap;
   }
   .icon-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .icon-btn.on{ background:var(--danger); border-color:var(--danger); color:#1a0805; }
   .icon-btn.danger{ color:var(--danger); border-color:var(--danger); }
   .icon-btn.danger:hover{ background:var(--danger); color:#1a0805; }
 
@@ -350,6 +351,7 @@
         '<div class="actions">' +
           '<button class="icon-btn" data-copy="' + link + '">کۆپی</button>' +
           '<button class="icon-btn" data-edit="' + slug + '">دەستکاری</button>' +
+          '<button class="icon-btn" data-pause="' + slug + '"></button>' +
           '<button class="icon-btn danger" data-delete="' + slug + '">سڕینەوە</button>' +
         '</div>';
       listContainer.appendChild(row);
@@ -370,6 +372,30 @@
         targetInput.focus();
         window.scrollTo({ top: 0, behavior: 'smooth' });
         setStatus('ناوی "' + slug + '" هەڵبژێردرا — لینکی نوێی بنووسە و "دروستکردنی لینک" بکە', '');
+      });
+
+      const pauseBtn = row.querySelector('[data-pause]');
+      let paused = !!item.paused;
+      function paintPause(){
+        pauseBtn.textContent = 'وەستاندن: ' + (paused ? 'ON' : 'OFF');
+        pauseBtn.classList.toggle('on', paused);
+      }
+      paintPause();
+      pauseBtn.addEventListener('click', async function(){
+        pauseBtn.disabled = true;
+        try{
+          const res = await fetch('/api/toggle-link', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug, paused: !paused })
+          });
+          if(res.ok){ paused = !paused; paintPause(); }
+          else { alert('نەتوانرا بگۆڕدرێت، دووبارە هەوڵبدەرەوە'); }
+        } catch(e){
+          alert('نەتوانرا پەیوەندی بکرێت');
+        } finally {
+          pauseBtn.disabled = false;
+        }
       });
 
       row.querySelector('[data-delete]').addEventListener('click', function(){
