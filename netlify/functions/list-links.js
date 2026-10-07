@@ -11,7 +11,7 @@ exports.handler = async (event) => {
   }
 
   const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/links?select=slug,created_at&order=created_at.desc&limit=200`,
+    `${SUPABASE_URL}/rest/v1/links?select=slug,created_at,paused&order=created_at.desc&limit=200`,
     {
       headers: {
         'apikey': SUPABASE_SERVICE_KEY,
